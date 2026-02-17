@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сапёр</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top-bar">
+        <h1>🧨 Сапёр</h1>
+        <div class="controls">
+          <label>
+            Сложность:
+            <select id="difficulty">
+              <option value="easy">Лёгкая (9x9, 10 мин)</option>
+              <option value="medium">Средняя (16x16, 40 мин)</option>
+              <option value="hard">Сложная (16x30, 99 мин)</option>
+            </select>
+          </label>
+          <button id="new-game">Новая игра</button>
+        </div>
+      </header>
+
+      <section class="stats">
+        <p>Статус: <strong id="status">Играется</strong></p>
+        <p>⏱ Время: <strong id="timer">0</strong> сек</p>
+      </section>
+
+      <section>
+        <div id="board" class="board" aria-label="Игровое поле"></div>
+      </section>
+
+      <section class="records">
+        <h2>🏆 Таблица рекордов</h2>
+        <ol id="records-list"></ol>
+      </section>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

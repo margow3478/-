@@ -77,5 +77,5 @@ boardEl.addEventListener('contextmenu', (e) => {
 newGameEl.addEventListener('click', startGame);
 difficultyEl.addEventListener('change', startGame);
 
-renderRecords(loadRecords(), recordsEl);
 startGame();
+renderRecords(loadRecords(), recordsEl);

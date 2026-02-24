@@ -1,10 +1,26 @@
 const KEY = 'minesweeper_records_v1';
 
-export function loadRecords() {
-  const raw = localStorage.getItem(KEY);
-  if (!raw) return [];
+let inMemoryRecords = [];
+
+function safeGetStorage() {
   try {
-    return JSON.parse(raw);
+    if (typeof localStorage === 'undefined') return null;
+    localStorage.getItem(KEY);
+    return localStorage;
+  } catch {
+    return null;
+  }
+}
+
+export function loadRecords() {
+  const storage = safeGetStorage();
+  if (!storage) return [...inMemoryRecords];
+
+  try {
+    const raw = storage.getItem(KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
@@ -15,6 +31,17 @@ export function saveRecord(record) {
   records.push(record);
   records.sort((a, b) => a.time - b.time);
   const top = records.slice(0, 10);
-  localStorage.setItem(KEY, JSON.stringify(top));
+
+  const storage = safeGetStorage();
+  if (storage) {
+    try {
+      storage.setItem(KEY, JSON.stringify(top));
+    } catch {
+      inMemoryRecords = top;
+    }
+  } else {
+    inMemoryRecords = top;
+  }
+
   return top;
 }
